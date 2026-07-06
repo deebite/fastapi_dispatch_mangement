@@ -1,9 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
+from app.core.connection import engine, Base
+from app.core.database import get_db
+
+from models.product import Product
+from models.batch import Batch 
+from models.pallet import Pallet
+
 
 def get_application():
-    
+    Base.metadata.create_all(bind=engine)
+
     _app = FastAPI(title=settings.PROJECT_NAME)
     _app.add_middleware(
         CORSMiddleware,
@@ -16,9 +24,6 @@ def get_application():
     return _app
 
 app = get_application()
-
-# Include Routers
-# app.include_router()
 
 @app.get("/api/health-check")
 async def health_check():
