@@ -2,11 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.core.connection import engine, Base
-from app.core.database import get_db
 
-from models.product import Product
-from models.batch import Batch 
-from models.pallet import Pallet
 
 
 def get_application():
